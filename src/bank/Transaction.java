@@ -4,16 +4,18 @@
  */
 package bank;
 
+import core.model.Account;
+
 /**
  *
  * @author edangulo
  */
 public class Transaction {
     
-    private TransactionType type;
-    private Account sourceAccount;
-    private Account destinationAccount;
-    private double amount;
+    private final TransactionType type;
+    private final Account sourceAccount;
+    private final Account destinationAccount;
+    private final double amount;
     
     public Transaction(TransactionType type, Account sourceAccount, Account destinationAccount, double amount) {
         this.type = type;

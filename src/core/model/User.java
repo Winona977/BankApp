@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package bank;
+package core.model;
 
 import java.util.ArrayList;
 
@@ -12,11 +12,11 @@ import java.util.ArrayList;
  */
 public class User {
     
-    private int id;
-    private String firstname;
-    private String lastname;
-    private int age;
-    private ArrayList<Account> accounts;
+    private final int id;
+    private final String firstname;
+    private final String lastname;
+    private final int age;
+    private final ArrayList<Account> accounts;
 
     public User(int id, String firstname, String lastname, int age) {
         this.id = id;

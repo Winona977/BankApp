@@ -2,8 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
-package bank;
+package core.view;
 
+import bank.Transaction;
+import bank.TransactionType;
+import core.controller.UserRegister;
+import core.model.User;
+import core.model.Account;
+import core.model.UserManager;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Random;
@@ -18,7 +24,6 @@ public class BankFrame extends javax.swing.JFrame {
     
     private ArrayList<Account> accounts;
     private ArrayList<Transaction> transactions;
-    private ArrayList<User> users;
     
     /**
      * Creates new form BankFrame
@@ -27,7 +32,6 @@ public class BankFrame extends javax.swing.JFrame {
         initComponents();
         this.accounts = new ArrayList<>();
         this.transactions = new ArrayList<>();
-        this.users = new ArrayList<>();
     }
 
     /**
@@ -519,21 +523,7 @@ public class BankFrame extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        try {
-            int id = Integer.parseInt(jTextField1.getText());
-            String firstname = jTextField2.getText();
-            String lastname = jTextField3.getText();
-            int age = Integer.parseInt(jTextField4.getText());
-            
-            this.users.add(new User(id, firstname, lastname, age));
-            
-            jTextField1.setText("");
-            jTextField2.setText("");
-            jTextField3.setText("");
-            jTextField4.setText("");
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
-        }
+        UserRegister.getInstance().Regist(jTextField1.getText(), jTextField2.getText(), jTextField3.getText(), jTextField4.getText());
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -543,7 +533,7 @@ public class BankFrame extends javax.swing.JFrame {
             double initialBalance = Double.parseDouble(jTextField6.getText());
             
             User selectedUser = null;
-            for (User user : this.users) {
+            for (User user : UserManager.getInstance()) {
                 if (user.getId() == userId && selectedUser == null) {
                     selectedUser = user;
                 }
@@ -657,9 +647,9 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
         model.setRowCount(0);
         
-        this.users.sort((obj1, obj2) -> (obj1.getId() - obj2.getId()));
+        UserManager.getInstance().sort((obj1, obj2) -> (obj1.getId() - obj2.getId()));
         
-        for (User user : this.users) {
+        for (User user : UserManager.getInstance()) {
             model.addRow(new Object[]{user.getId(), user.getFirstname() + " " + user.getLastname(), user.getAge(), user.getNumAccounts()});
         }
     }//GEN-LAST:event_jButton4ActionPerformed

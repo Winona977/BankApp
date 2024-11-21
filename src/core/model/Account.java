@@ -2,7 +2,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package bank;
+package core.model;
 
 /**
  *
@@ -10,8 +10,8 @@ package bank;
  */
 public class Account {
     
-    private String id;
-    private User owner;
+    private final String id;
+    private final User owner;
     private double balance;
 
     public Account(String id, User owner) {

@@ -9,29 +9,27 @@ import core.model.User;
 import core.model.dataManager.AccountManager;
 import core.model.dataManager.UserManager;
 import java.util.Random;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author scues
  */
-public class AccountRegister implements Registrable {
+public class AccountRegistar {
     
-    private static AccountRegister instance;
+    private static AccountRegistar instance;
     
-    private AccountRegister() {
+    private AccountRegistar() {
         
     }
     
-    public static AccountRegister getInstance() {
+    public static AccountRegistar getInstance() {
         if (instance == null) {
-            instance = new AccountRegister();
+            instance = new AccountRegistar();
         }
         return instance;
     }
 
-    @Override
-    public boolean regist(String[] args) {
+    public boolean register(String[] args) {
         try {
             int userId = Integer.parseInt(args[0]);
             double initialBalance = Double.parseDouble(args[1]);

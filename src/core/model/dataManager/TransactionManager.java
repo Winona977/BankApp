@@ -4,7 +4,7 @@
  */
 package core.model.dataManager;
 
-import core.model.Transaction;
+import core.model.transaction.Transaction;
 import java.util.ArrayList;
 
 /**

@@ -2,8 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package core.model;
+package core.model.transaction;
 
+import core.model.Account;
 import core.model.Account;
 
 /**
@@ -40,4 +41,7 @@ public class Transaction {
         return amount;
     }
     
+    public boolean doTransaction() {
+        return type.doTransaction(this);
+    }
 }

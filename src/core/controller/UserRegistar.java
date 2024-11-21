@@ -6,28 +6,26 @@ package core.controller;
 
 import core.model.User;
 import core.model.dataManager.UserManager;
-import javax.swing.JOptionPane;
 
 /**
  *
  * @author scues
  */
-public class UserRegister implements Registrable {
-    private static UserRegister instance;
+public class UserRegistar {
+    private static UserRegistar instance;
     
-    private UserRegister() {
+    private UserRegistar() {
         
     }
     
-    public static UserRegister getInstance() {
+    public static UserRegistar getInstance() {
         if (instance == null) {
-            instance = new UserRegister();
+            instance = new UserRegistar();
         }
         return instance;
     }
     
-    @Override
-    public boolean regist(String[] args) {
+    public boolean register(String[] args) {
         try {
             int id = Integer.parseInt(args[0]);
             String firstname = args[1];

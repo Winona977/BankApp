@@ -5,14 +5,14 @@
 package core.controller;
 
 import core.model.User;
-import core.model.UserManager;
+import core.model.dataManager.UserManager;
 import javax.swing.JOptionPane;
 
 /**
  *
  * @author scues
  */
-public class UserRegister {
+public class UserRegister implements Registrable {
     private static UserRegister instance;
     
     private UserRegister() {
@@ -26,14 +26,18 @@ public class UserRegister {
         return instance;
     }
     
-    public void Regist(String id, String firstname, String lastname, String age) {
+    @Override
+    public boolean regist(String[] args) {
         try {
-            int idInt = Integer.parseInt(id);
-            int ageInt = Integer.parseInt(age);
+            int id = Integer.parseInt(args[0]);
+            String firstname = args[1];
+            String lastname = args[2];
+            int age = Integer.parseInt(args[3]);
             
-            UserManager.getInstance().add(new User(idInt, firstname, lastname, ageInt));
+            UserManager.getInstance().add(new User(id, firstname, lastname, age));
+            return true;
         } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+            return false;
         }
     }
 }

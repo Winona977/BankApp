@@ -4,6 +4,8 @@
  */
 package core.controller;
 
+import core.controller.utils.Response;
+import core.controller.utils.Status;
 import core.model.Account;
 import core.model.User;
 import core.model.dataManager.AccountManager;
@@ -29,7 +31,7 @@ public class AccountRegistar {
         return instance;
     }
 
-    public boolean register(String[] args) {
+    public Response register(String[] args) {
         try {
             int userId = Integer.parseInt(args[0]);
             double initialBalance = Double.parseDouble(args[1]);
@@ -51,9 +53,9 @@ public class AccountRegistar {
 
                 AccountManager.getInstance().add(new Account(accountId, selectedUser, initialBalance));
             }
-            return true;
+            return new Response("account successfully created", Status.CREATED);
         } catch (NumberFormatException ex) {
-            return false;
+            return new Response("that's not a number", Status.BAD_REQUEST);
         }
     }
     

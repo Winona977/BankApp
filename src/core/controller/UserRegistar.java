@@ -4,6 +4,8 @@
  */
 package core.controller;
 
+import core.controller.utils.Response;
+import core.controller.utils.Status;
 import core.model.User;
 import core.model.dataManager.UserManager;
 
@@ -25,7 +27,7 @@ public class UserRegistar {
         return instance;
     }
     
-    public boolean register(String[] args) {
+    public Response register(String[] args) {
         try {
             int id = Integer.parseInt(args[0]);
             String firstname = args[1];
@@ -33,9 +35,9 @@ public class UserRegistar {
             int age = Integer.parseInt(args[3]);
             
             UserManager.getInstance().add(new User(id, firstname, lastname, age));
-            return true;
+            return new Response("User successfully registered", Status.CREATED);
         } catch (NumberFormatException ex) {
-            return false;
+            return new Response("that's not a number", Status.BAD_REQUEST);
         }
     }
 }

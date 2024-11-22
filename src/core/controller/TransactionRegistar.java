@@ -4,11 +4,12 @@
  */
 package core.controller;
 
+import core.controller.utils.Response;
+import core.controller.utils.Status;
 import core.model.Account;
 import core.model.transaction.Transaction;
 import core.model.transaction.TransactionType;
 import core.model.dataManager.AccountManager;
-import core.model.dataManager.TransactionManager;
 import core.model.transaction.DepositTransaction;
 import core.model.transaction.TransferTransaction;
 import core.model.transaction.WithdrawTransaction;
@@ -32,7 +33,7 @@ public class TransactionRegistar {
         return instance;
     }
 
-    public boolean register(String[] args) {
+    public Response register(String[] args) {
         try {
             String sourceAccountId = args[1];
             String destinationAccountId = args[2];
@@ -63,9 +64,9 @@ public class TransactionRegistar {
                     break;
             }
             new Transaction(transactionType, sourceAccount, destinationAccount, amount).doTransaction();
-            return true;
+            return new Response("transaction successfully completed", Status.CREATED);
         } catch (NumberFormatException ex) {
-            return false;
+            return new Response("that's not a number", Status.BAD_REQUEST);
         }
     }
 

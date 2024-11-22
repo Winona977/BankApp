@@ -7,8 +7,9 @@ package core.view;
 import core.controller.AccountRegistar;
 import core.controller.TransactionRegistar;
 import core.model.transaction.Transaction;
-import core.model.transaction.TransactionType;
 import core.controller.UserRegistar;
+import core.controller.utils.Response;
+import core.controller.utils.StatusType;
 import core.model.User;
 import core.model.Account;
 import core.model.dataManager.AccountManager;
@@ -16,7 +17,6 @@ import core.model.dataManager.TransactionManager;
 import core.model.dataManager.UserManager;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Random;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
@@ -522,35 +522,46 @@ public class BankFrame extends javax.swing.JFrame {
 
     private void userRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRegisterButtonActionPerformed
         // TODO add your handling code here:
-        if (UserRegistar.getInstance().register(new String[]{idInput.getText(), firstnameInput.getText(), lastnameInput.getText(), ageInput.getText()})) {
+        Response response = UserRegistar.getInstance().register(new String[]{idInput.getText(), firstnameInput.getText(), lastnameInput.getText(), ageInput.getText()});
+        int messageType;
+        if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             idInput.setText("");
             firstnameInput.setText("");
             lastnameInput.setText("");
             ageInput.setText("");
+            messageType = JOptionPane.NO_OPTION;
         } else {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+            messageType = JOptionPane.ERROR_MESSAGE;
         }
+        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
     }//GEN-LAST:event_userRegisterButtonActionPerformed
 
     private void AccountCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountCreateButtonActionPerformed
         // TODO add your handling code here:
-        if (AccountRegistar.getInstance().register(new String[]{userIdInput.getText(), initBalanceInput.getText()})) {
+        Response response = AccountRegistar.getInstance().register(new String[]{userIdInput.getText(), initBalanceInput.getText()});
+        int messageType;
+        if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             userIdInput.setText("");
             initBalanceInput.setText("");
+            messageType = JOptionPane.NO_OPTION;
         } else {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+            messageType = JOptionPane.ERROR_MESSAGE;
         }
+        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
     }//GEN-LAST:event_AccountCreateButtonActionPerformed
 
     private void ExecuteTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExecuteTransactionButtonActionPerformed
         // TODO add your handling code here:
-        if (TransactionRegistar.getInstance().register(new String[]{TypeBox.getItemAt(TypeBox.getSelectedIndex()), sourceAccountInput.getText(), destinationAcInput.getText(), AmountInput.getText()})) {
+        Response response = TransactionRegistar.getInstance().register(new String[]{TypeBox.getItemAt(TypeBox.getSelectedIndex()), sourceAccountInput.getText(), destinationAcInput.getText(), AmountInput.getText()});
+        int messageType;
+        if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             sourceAccountInput.setText("");
             destinationAcInput.setText("");
-            AmountInput.setText("");
+            messageType = JOptionPane.NO_OPTION;
         } else {
-            JOptionPane.showMessageDialog(null, "Error", "Error", JOptionPane.ERROR_MESSAGE);
+            messageType = JOptionPane.ERROR_MESSAGE;
         }
+        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
     }//GEN-LAST:event_ExecuteTransactionButtonActionPerformed
 
     private void userRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRefreshButtonActionPerformed

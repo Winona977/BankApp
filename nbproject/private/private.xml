@@ -3,12 +3,13 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/AccountRegister.java</file>
-            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/model/TransactionType.java</file>
             <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/view/BankFrame.java</file>
-            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/TransactionRegister.java</file>
-            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/Registrable.java</file>
-            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/UserRegister.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/AccountRegistar.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/TransactionRegistar.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/utils/Status.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/utils/Response.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/core/controller/UserRegistar.java</file>
+            <file>file:/C:/Users/scues/OneDrive/Documentos/GitHub/Java/BankApp/src/main/Main.java</file>
         </group>
     </open-files>
 </project-private>

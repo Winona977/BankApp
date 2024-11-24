@@ -37,16 +37,20 @@ public class AccountRegistar {
             double initialBalance = Double.parseDouble(args[1]);
             
             if (initialBalance < 0){
-                return new Response("Initial balance cant be negative.", Status.BAD_REQUEST);
+                return new Response("Initial balance can't be negative.", Status.BAD_REQUEST);
             }
 
+            boolean sw = true;
             User selectedUser = null;
             for (User user : UserManager.getInstance()) {
-                if (user.getId() == userId && selectedUser == null) {
+                if (user.getId() == userId) {
                     selectedUser = user;
-                } else {
-                    return new Response("User does not existe.", Status.BAD_REQUEST);
+                    sw = false;
+                    break;
                 }
+            }
+            if (sw) {
+                return new Response("User does not exist.", Status.BAD_REQUEST);
             }
 
             if (selectedUser != null) {
@@ -57,7 +61,8 @@ public class AccountRegistar {
 
                 String accountId = null;
 
-                boolean sw = false;
+                sw = false;
+                int count = 0;
                 do {
                     accountId = String.format("%03d", first) + "-" + String.format("%06d", second) + "-" + String.format("%02d", third);
                     for (Account account : AccountManager.getInstance()) {
@@ -66,13 +71,17 @@ public class AccountRegistar {
                             break;
                         }
                     }
+                    count++;
+                    if (count > 99999) {
+                        return new Response("Unknown error when creating account id.", Status.INTERNAL_SERVER_ERROR);
+                    }
                 } while (sw);
 
                 AccountManager.getInstance().add(new Account(accountId, selectedUser, initialBalance));
             }
-            return new Response("account successfully created", Status.CREATED);
+            return new Response("Account successfully created.", Status.CREATED);
         } catch (NumberFormatException ex) {
-            return new Response("that's not a number", Status.BAD_REQUEST);
+            return new Response("That's not a number.", Status.BAD_REQUEST);
         }
     }
 

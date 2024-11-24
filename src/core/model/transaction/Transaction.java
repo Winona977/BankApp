@@ -4,7 +4,7 @@
  */
 package core.model.transaction;
 
-import core.model.Account;
+import core.controller.utils.Response;
 import core.model.Account;
 
 /**
@@ -41,7 +41,7 @@ public class Transaction {
         return amount;
     }
     
-    public boolean doTransaction() {
+    public Response doTransaction() {
         return type.doTransaction(this);
     }
 }

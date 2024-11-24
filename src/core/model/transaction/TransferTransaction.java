@@ -4,6 +4,8 @@
  */
 package core.model.transaction;
 
+import core.controller.utils.Response;
+import core.controller.utils.Status;
 import core.model.Account;
 import core.model.dataManager.TransactionManager;
 
@@ -28,16 +30,21 @@ public class TransferTransaction implements TransactionType {
     }
 
     @Override
-    public boolean doTransaction(Transaction t) {
+    public Response doTransaction(Transaction t) {
         if (t != null) {
             Account destinationAccount = t.getDestinationAccount();
             Account sourceAccount = t.getSourceAccount();
-            if (destinationAccount != null & (sourceAccount != null && sourceAccount.withdraw(t.getAmount()))) {
-                destinationAccount.deposit(t.getAmount());
-                TransactionManager.getInstance().add(t);
+            if (destinationAccount != null & sourceAccount != null) {
+                if (sourceAccount.withdraw(t.getAmount())) {
+                    destinationAccount.deposit(t.getAmount());
+                    TransactionManager.getInstance().add(t);
+                    return new Response("Transaction completed successfully", Status.CREATED);
+                }
+            } else {
+                return new Response("Those accounts dont exist.", Status.CREATED);
             }
         }
-        return true;
+        return new Response("There's not enough funds", Status.BAD_REQUEST);
     }
 
     @Override

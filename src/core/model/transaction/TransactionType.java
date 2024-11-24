@@ -4,10 +4,12 @@
  */
 package core.model.transaction;
 
+import core.controller.utils.Response;
+
 /**
  *
  * @author scues
  */
 public interface TransactionType extends Nameable {
-    public boolean doTransaction(Transaction t);
+    public Response doTransaction(Transaction t);
 }

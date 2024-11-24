@@ -41,6 +41,6 @@ public class TransactionManagerController {
         ArrayList<Transaction> transactionsCopy = (ArrayList<Transaction>) transactions.clone();
         Collections.reverse(transactionsCopy);
         
-        return new Response("Transactions listed successfully", Status.OK, transactions.toArray(result));
+        return new Response("Transactions listed successfully", Status.OK, transactionsCopy.toArray(result));
     }
 }

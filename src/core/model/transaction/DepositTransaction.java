@@ -4,6 +4,8 @@
  */
 package core.model.transaction;
 
+import core.controller.utils.Response;
+import core.controller.utils.Status;
 import core.model.Account;
 import core.model.dataManager.TransactionManager;
 
@@ -28,15 +30,17 @@ public class DepositTransaction implements TransactionType {
     }
 
     @Override
-    public boolean doTransaction(Transaction t) {
+    public Response doTransaction(Transaction t) {
         if (t != null) {
             Account account = t.getDestinationAccount();
             if (account != null) {
                 account.deposit(t.getAmount());
                 TransactionManager.getInstance().add(t);
+            } else {
+                return new Response("That sestination account Doesn't exist.", Status.CREATED);
             }
         }
-        return true;
+        return new Response("Transaction completed successfully.", Status.CREATED);
     }
 
     @Override

@@ -63,10 +63,9 @@ public class TransactionRegistar {
                     transactionType = TransferTransaction.getInstance();
                     break;
             }
-            new Transaction(transactionType, sourceAccount, destinationAccount, amount).doTransaction();
-            return new Response("transaction successfully completed", Status.CREATED);
+            return new Transaction(transactionType, sourceAccount, destinationAccount, amount).doTransaction();
         } catch (NumberFormatException ex) {
-            return new Response("that's not a number", Status.BAD_REQUEST);
+            return new Response("That's not a number.", Status.BAD_REQUEST);
         }
     }
 

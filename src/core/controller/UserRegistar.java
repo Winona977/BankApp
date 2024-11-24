@@ -48,17 +48,17 @@ public class UserRegistar {
             if (age < 18) {
                 return new Response("Underage users can not register.", Status.BAD_REQUEST);
             }
-            if (firstname == null) {
+            if (firstname.isBlank()) {
                 return new Response("First name can't be empty.", Status.BAD_REQUEST);
             }
-            if (lastname == null) {
-                return new Response("Last name can't be empty..", Status.BAD_REQUEST);
+            if (lastname.isBlank()) {
+                return new Response("Last name can't be empty.", Status.BAD_REQUEST);
             }
 
             UserManager.getInstance().add(new User(id, firstname, lastname, age));
-            return new Response("User successfully registered", Status.CREATED);
+            return new Response("User successfully registered.", Status.CREATED);
         } catch (NumberFormatException ex) {
-            return new Response("that's not a number", Status.BAD_REQUEST);
+            return new Response("That's not a number.", Status.BAD_REQUEST);
         }
     }
 }

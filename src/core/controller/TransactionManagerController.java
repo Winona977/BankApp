@@ -33,11 +33,14 @@ public class TransactionManagerController {
     
     public Response<Transaction[]> list() {
         TransactionManager transactions = TransactionManager.getInstance();
+        Transaction[] result = new Transaction[transactions.size()];
+        if (transactions.isEmpty()) {
+            return new Response("There's no Transactions", Status.NO_CONTENT, result);
+        }
         
         ArrayList<Transaction> transactionsCopy = (ArrayList<Transaction>) transactions.clone();
         Collections.reverse(transactionsCopy);
         
-        Transaction[] result = new Transaction[transactions.size()];
-        return new Response("Users listed successfully", Status.OK, transactions.toArray(result));
+        return new Response("Transactions listed successfully", Status.OK, transactions.toArray(result));
     }
 }

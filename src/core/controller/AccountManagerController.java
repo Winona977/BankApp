@@ -31,8 +31,13 @@ public class AccountManagerController {
     
     public Response<Account[]> list() {
         AccountManager accounts = AccountManager.getInstance();
-        accounts.sort((obj1, obj2) -> (obj1.getId().compareTo(obj2.getId())));
         Account[] result = new Account[accounts.size()];
-        return new Response("Users listed successfully", Status.OK, accounts.toArray(result));
+        if (accounts.isEmpty()) {
+            return new Response("There's no Accounts", Status.NO_CONTENT, result);
+        }
+        
+        accounts.sort((obj1, obj2) -> (obj1.getId().compareTo(obj2.getId())));
+        
+        return new Response("Accounts listed successfully", Status.OK, accounts.toArray(result));
     }
 }

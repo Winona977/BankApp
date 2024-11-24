@@ -526,45 +526,36 @@ public class BankFrame extends javax.swing.JFrame {
     private void userRegisterButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRegisterButtonActionPerformed
         // TODO add your handling code here:
         Response response = UserRegistar.getInstance().register(new String[]{idInput.getText(), firstnameInput.getText(), lastnameInput.getText(), ageInput.getText()});
-        int messageType;
+        
         if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             idInput.setText("");
             firstnameInput.setText("");
             lastnameInput.setText("");
             ageInput.setText("");
-            messageType = JOptionPane.NO_OPTION;
-        } else {
-            messageType = JOptionPane.ERROR_MESSAGE;
         }
-        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_userRegisterButtonActionPerformed
 
     private void AccountCreateButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AccountCreateButtonActionPerformed
         // TODO add your handling code here:
         Response response = AccountRegistar.getInstance().register(new String[]{userIdInput.getText(), initBalanceInput.getText()});
-        int messageType;
+        
         if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             userIdInput.setText("");
             initBalanceInput.setText("");
-            messageType = JOptionPane.NO_OPTION;
-        } else {
-            messageType = JOptionPane.ERROR_MESSAGE;
         }
-        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_AccountCreateButtonActionPerformed
 
     private void ExecuteTransactionButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExecuteTransactionButtonActionPerformed
         // TODO add your handling code here:
         Response response = TransactionRegistar.getInstance().register(new String[]{TypeBox.getItemAt(TypeBox.getSelectedIndex()), sourceAccountInput.getText(), destinationAcInput.getText(), AmountInput.getText()});
-        int messageType;
+        
         if (response.getStatus().getType() == StatusType.SUCCESSFUL) {
             sourceAccountInput.setText("");
             destinationAcInput.setText("");
-            messageType = JOptionPane.NO_OPTION;
-        } else {
-            messageType = JOptionPane.ERROR_MESSAGE;
         }
-        JOptionPane.showMessageDialog(null, response.getMessage(), response.getStatus().getType().name(), messageType);
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_ExecuteTransactionButtonActionPerformed
 
     private void userRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_userRefreshButtonActionPerformed
@@ -572,11 +563,13 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) UsersTable.getModel();
         model.setRowCount(0);
 
-        User[] users = UserManagerController.getInstance().list().getObject();
+        Response<User[]> response = UserManagerController.getInstance().list();
+        User[] users = response.getObject();
 
         for (User user : users) {
             model.addRow(new Object[]{user.getId(), user.getFirstname() + " " + user.getLastname(), user.getAge(), user.getNumAccounts()});
         }
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_userRefreshButtonActionPerformed
 
     private void AcRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AcRefreshButtonActionPerformed
@@ -584,11 +577,13 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) AccountsTable.getModel();
         model.setRowCount(0);
 
-        Account[] accounts = AccountManagerController.getInstance().list().getObject();
+        Response<Account[]> response = AccountManagerController.getInstance().list();
+        Account[] accounts = response.getObject();
 
         for (Account account : accounts) {
             model.addRow(new Object[]{account.getId(), account.getOwner().getId(), account.getBalance()});
         }
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_AcRefreshButtonActionPerformed
 
     private void TraRefreshButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TraRefreshButtonActionPerformed
@@ -596,11 +591,13 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TransactionsTable.getModel();
         model.setRowCount(0);
 
-        Transaction[] transactions = TransactionManagerController.getInstance().list().getObject();
+        Response<Transaction[]> response = TransactionManagerController.getInstance().list();
+        Transaction[] transactions = response.getObject();
 
         for (Transaction transaction : transactions) {
             model.addRow(new Object[]{transaction.getType().getName(), (transaction.getSourceAccount() != null ? transaction.getSourceAccount().getId() : "None"), (transaction.getDestinationAccount() != null ? transaction.getDestinationAccount().getId() : "None"), transaction.getAmount()});
         }
+        MessagePane.showMessage(response, this);
     }//GEN-LAST:event_TraRefreshButtonActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables

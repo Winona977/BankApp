@@ -29,8 +29,13 @@ public class UserManagerController {
     
     public Response<User[]> list() {
         UserManager users = UserManager.getInstance();
-        users.sort((obj1, obj2) -> (obj1.getId() - obj2.getId()));
         User[] result = new User[users.size()];
+        if (users.isEmpty()) {
+            return new Response("There's no Users", Status.NO_CONTENT, result);
+        }
+        
+        users.sort((obj1, obj2) -> (obj1.getId() - obj2.getId()));
+        
         return new Response("Users listed successfully", Status.OK, users.toArray(result));
     }
 }

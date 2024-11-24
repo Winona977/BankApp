@@ -7,19 +7,20 @@ package core.controller.utils;
 /**
  *
  * @author scues
+ * @param <T>
  */
-public class Response {
+public class Response<T> {
     
     private final String message;
     private final Status status;
-    private Object object;
+    private T object;
 
     public Response(String message, Status status) {
         this.message = message;
         this.status = status;
     }
     
-    public Response(String message, Status status, Object object) {
+    public Response(String message, Status status, T object) {
         this.message = message;
         this.status = status;
         this.object = object;
@@ -33,7 +34,7 @@ public class Response {
         return status;
     }
 
-    public Object getObject() {
+    public T getObject() {
         return object;
     }
     

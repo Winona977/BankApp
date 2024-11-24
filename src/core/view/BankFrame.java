@@ -4,8 +4,11 @@
  */
 package core.view;
 
+import core.controller.AccountManagerController;
 import core.controller.AccountRegistar;
+import core.controller.TransactionManagerController;
 import core.controller.TransactionRegistar;
+import core.controller.UserManagerController;
 import core.model.transaction.Transaction;
 import core.controller.UserRegistar;
 import core.controller.utils.Response;
@@ -569,9 +572,9 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) UsersTable.getModel();
         model.setRowCount(0);
 
-        UserManager.getInstance().sort((obj1, obj2) -> (obj1.getId() - obj2.getId()));
+        User[] users = UserManagerController.getInstance().list().getObject();
 
-        for (User user : UserManager.getInstance()) {
+        for (User user : users) {
             model.addRow(new Object[]{user.getId(), user.getFirstname() + " " + user.getLastname(), user.getAge(), user.getNumAccounts()});
         }
     }//GEN-LAST:event_userRefreshButtonActionPerformed
@@ -581,9 +584,9 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) AccountsTable.getModel();
         model.setRowCount(0);
 
-        AccountManager.getInstance().sort((obj1, obj2) -> (obj1.getId().compareTo(obj2.getId())));
+        Account[] accounts = AccountManagerController.getInstance().list().getObject();
 
-        for (Account account : AccountManager.getInstance()) {
+        for (Account account : accounts) {
             model.addRow(new Object[]{account.getId(), account.getOwner().getId(), account.getBalance()});
         }
     }//GEN-LAST:event_AcRefreshButtonActionPerformed
@@ -593,10 +596,9 @@ public class BankFrame extends javax.swing.JFrame {
         DefaultTableModel model = (DefaultTableModel) TransactionsTable.getModel();
         model.setRowCount(0);
 
-        ArrayList<Transaction> transactionsCopy = (ArrayList<Transaction>) TransactionManager.getInstance().clone();
-        Collections.reverse(transactionsCopy);
+        Transaction[] transactions = TransactionManagerController.getInstance().list().getObject();
 
-        for (Transaction transaction : transactionsCopy) {
+        for (Transaction transaction : transactions) {
             model.addRow(new Object[]{transaction.getType().getName(), (transaction.getSourceAccount() != null ? transaction.getSourceAccount().getId() : "None"), (transaction.getDestinationAccount() != null ? transaction.getDestinationAccount().getId() : "None"), transaction.getAmount()});
         }
     }//GEN-LAST:event_TraRefreshButtonActionPerformed
